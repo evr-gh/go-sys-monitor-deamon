@@ -1,0 +1,36 @@
+name: Project tests
+
+on:
+  push:
+    branches:
+      - dev*
+
+env:
+  GO111MODULE: "on"
+  GOLANG_VERSION: ~1.25
+  GOLANGCI_LINT_VERSION: v2.11.4
+  
+jobs:
+  tests_by_makefile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Go
+        uses: actions/setup-go@v6
+        with:
+          cache: false
+          go-version: ${{ env.GOLANG_VERSION }}
+
+      - name: Check out code
+        uses: actions/checkout@v6
+
+      - name: make lint
+        run: make lint
+        working-directory: ./
+
+      - name: make build
+        run: make build
+        working-directory: ./
+
+      - name: make test
+        run: make test
+        working-directory: ./

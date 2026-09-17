@@ -1,0 +1,125 @@
+version: "2"
+run:
+  build-tags:
+    - bench
+    - ""
+  tests: true
+linters:
+  default: none
+  enable:
+    - asciicheck
+    - bodyclose
+    - copyloopvar
+    - depguard
+    - dogsled
+    - dupl
+    - durationcheck
+    - errorlint
+    - exhaustive
+    - funlen
+    - gocognit
+    - goconst
+    - gocritic
+    - gocyclo
+    - godot
+    - goheader
+    - goprintffuncname
+    - gosec
+    - govet
+    - importas
+    - ineffassign
+    - lll
+    - makezero
+    - misspell
+    - nestif
+    - nilerr
+    - noctx
+    - nolintlint
+    - prealloc
+    - predeclared
+    - revive
+    - staticcheck
+    - tagliatelle
+    - thelper
+    - unconvert
+    - unparam
+    - unused
+    - whitespace
+  settings:
+    depguard:
+      rules:
+        Main:
+          files:
+            - $all
+            - '!$test'
+          allow:
+            - $gostd
+            - golang.org/x/
+            - github.com/stretchr/testify
+            - github.com/cheggaaa/pb/v3
+            - github.com/spf13/pflag
+            - github.com/spf13/viper
+            - github.com/jmoiron/sqlx
+            - github.com/mattn/go-sqlite3
+            - github.com/go-sql-driver/mysql
+            - github.com/DATA-DOG/go-sqlmock
+            - github.com/jackc/pgx/v5
+            - google.golang.org/grpc
+            - google.golang.org/grpc/status
+            - google.golang.org/grpc/credentials/insecure
+            - google.golang.org/protobuf/types/known/emptypb
+            - google.golang.org/protobuf/types/known/durationpb
+            - google.golang.org/protobuf/types/known/timestamppb
+        Test:
+          files:
+            - $test
+          allow:
+            - $gostd
+            - golang.org/x/
+            - github.com/stretchr/testify
+            - go.uber.org/goleak
+            - github.com/spf13/pflag
+            - github.com/spf13/viper
+            - github.com/jmoiron/sqlx
+            - github.com/mattn/go-sqlite3
+            - github.com/go-sql-driver/mysql
+            - github.com/DATA-DOG/go-sqlmock
+            - github.com/jackc/pgx/v5
+            - google.golang.org/grpc
+            - google.golang.org/grpc/status
+            - google.golang.org/grpc/credentials/insecure
+            - google.golang.org/protobuf/types/known/emptypb
+            - google.golang.org/protobuf/types/known/durationpb
+            - google.golang.org/protobuf/types/known/timestamppb
+    funlen:
+      lines: 150
+      statements: 80
+  exclusions:
+    generated: lax
+    presets:
+      - comments
+      - common-false-positives
+      - legacy
+      - std-error-handling
+    rules:
+      - linters:
+          - dupl
+          - errcheck
+          - gocyclo
+          - gosec
+        path: _test\.go
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
+formatters:
+  enable:
+    - gci
+    - gofmt
+    - gofumpt
+  exclusions:
+    generated: lax
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
